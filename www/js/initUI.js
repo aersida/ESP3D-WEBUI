@@ -25,7 +25,8 @@ const update_UI_firmware_target = () => {
 	setHTML("control_z_position_label", "Z");
 	showAxiscontrols();
 
-	displayNone("configtablink");
+	// Hide the GRBL config tab link
+	// displayNone("configtablink");
 	displayNone("auto_check_control");
 	displayNone("progress_btn");
 	displayNone("abort_btn");

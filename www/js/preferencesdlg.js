@@ -578,7 +578,7 @@ function SavePreferences(current_preferences) {
         saveprefs.push(`"enable_DHT":"${id('enable_DHT').checked}"`);
 
         saveprefs.push(`"enable_camera":"${id('show_camera_panel').checked}"`);
-        saveprefs.push(`"auto_load_camera":"${id('autoload_camera_panel').checked}`);
+        saveprefs.push(`"auto_load_camera":"${id('autoload_camera_panel').checked}"`);
         saveprefs.push(`"camera_address":"${HTMLEncode(getValue('preferences_camera_webaddress') || "")}"`);
 
         saveprefs.push(`"enable_control_panel":"${id('show_control_panel').checked}"`);
@@ -614,7 +614,8 @@ function SavePreferences(current_preferences) {
         saveprefs.push(`"enable_commands_panel":"${id('show_commands_panel').checked}"`);
         saveprefs.push(`"enable_autoscroll":"${id('preferences_autoscroll').checked}"`);
         saveprefs.push(`"enable_verbose_mode":"${id('preferences_verbose_mode').checked}"}]`);
-        preferenceslist = JSON.parse(saveprefs.join(","));
+        const newSavePrefs = saveprefs.join(",");
+        preferenceslist = JSON.parse(newSavePrefs);
     }
     const file = BuildFormDataFiles(preferences_file_name, [JSON.stringify(preferenceslist, null, " ")], { type: 'application/json' });
     var formData = new FormData();
