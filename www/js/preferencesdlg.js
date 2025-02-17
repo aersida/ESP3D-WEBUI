@@ -552,6 +552,7 @@ function SavePreferences(current_preferences) {
     if (CheckForHttpCommLock()) {
         return;
     }
+
     console.log("save prefs");
     if (((typeof (current_preferences) !== 'undefined') && !current_preferences) || (typeof (current_preferences) == 'undefined')) {
         if (!Checkvalues("preferences_autoReport_Interval") ||
@@ -614,9 +615,15 @@ function SavePreferences(current_preferences) {
         saveprefs.push(`"enable_commands_panel":"${id('show_commands_panel').checked}"`);
         saveprefs.push(`"enable_autoscroll":"${id('preferences_autoscroll').checked}"`);
         saveprefs.push(`"enable_verbose_mode":"${id('preferences_verbose_mode').checked}"}]`);
-        const newSavePrefs = saveprefs.join(",");
-        preferenceslist = JSON.parse(newSavePrefs);
+        try {
+            preferenceslist = JSON.parse(saveprefs.join(","));
+        } catch (error) {
+            console.error("There was an error preparing the preferences before saving them. The preferences have not been saved. This is probably a programmer error.");
+            console.error(error);
+            return;
+        }
     }
+
     const file = BuildFormDataFiles(preferences_file_name, [JSON.stringify(preferenceslist, null, " ")], { type: 'application/json' });
     var formData = new FormData();
     formData.append('path', '/');
